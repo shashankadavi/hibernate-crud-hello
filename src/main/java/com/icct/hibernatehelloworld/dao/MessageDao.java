@@ -87,6 +87,8 @@ public class MessageDao {
 				 tx.rollback();
 				 e.printStackTrace();
 			 }
+		 }catch(Exception e){
+			 e.printStackTrace();
 		 }finally {
 			 session.close();
 		 }
@@ -111,6 +113,8 @@ public class MessageDao {
 				 tx.rollback();
 				 e.printStackTrace();
 			 }
+		 }catch(Exception e){
+			 e.printStackTrace();
 		 }finally {
 			 session.close();
 		 }
