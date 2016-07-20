@@ -9,39 +9,47 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd">
 
- <mvc:annotation-driven/>
+ <mvc:annotation-driven>
+ 	<mvc:message-converters>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+    </mvc:message-converters>
+ </mvc:annotation-driven>
  <context:component-scan base-package="com.icct.hibernatehelloworld.controller"></context:component-scan>
  <context:component-scan base-package="com.icct.hibernateworld.service"></context:component-scan>
  
- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:32772/Message"/>
         <property name="username" value="root"/>
         <property name="password" value="letmein"/>
     </bean>
-
+ 
 <!-- <context:component-scan base-package="com.icct.hibernatehelloworld.*"></context:component-scan>
 	<context:property-placeholder location="com/icct/hibernatehelloworld/props/jdbc.properties" />
  -->
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
-		 <property name="dataSource" ref="dataSource" />
-  		<property name="annotatedClasses">
+ 		 <property name="dataSource" ref="dataSource" />
+ 		  <property name="packagesToScan" value="com.icct.hibernatehelloworld.model" />
+ <!--  		<property name="annotatedClasses">
    		<list>
     	<value>com.icct.hibernatehelloworld.model.Message</value>
    		</list>
   	   </property>
-		<property name="hibernateProperties">
+ -->
+ 		<property name="hibernateProperties">
    		<props>
+   		
     	<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
     	<prop key="hibernate.show_sql">true</prop>
     	<prop key="format_sql">true</prop>
-    	<prop key="hbm2ddl.auto">update</prop>
+     	<prop key="hbm2ddl.auto">update</prop>
+     	
   
     	<!-- JDBC connection pool (use the built-in) -->
-    	<prop key="connection.pool_size">1</prop>
+    	<prop key="connection.pool_size">10</prop>
     	<prop key="current_session_context_class">thread</prop>
  
    	</props>
@@ -65,7 +73,5 @@
 	<bean id="messageService"
 		class="com.icct.hibernateworld.service.MessageService">
 	</bean>
-	<bean id="hibernateUtil"
-		class="com.icct.hibernatehelloworld.util.HibernateUtil">
-	</bean>
+	
 </beans>

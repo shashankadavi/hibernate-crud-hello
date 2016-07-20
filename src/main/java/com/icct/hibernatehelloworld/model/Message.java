@@ -1,21 +1,25 @@
 package com.icct.hibernatehelloworld.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+//import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class Message {
+public class Message implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue
 	@Column(name = "id")
-	private int id;
+	private Long id;
 	
 	@Column(name ="message")
 	private String message;
@@ -24,12 +28,12 @@ public class Message {
 		
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id = (long) id;
 	}
 
 	public String getMessage() {

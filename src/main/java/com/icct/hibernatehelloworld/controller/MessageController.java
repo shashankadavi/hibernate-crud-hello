@@ -25,14 +25,15 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer createMessage(@RequestBody String message){
-		Integer messageId = null;
+	public Long createMessage(@RequestBody String message){
+		Long messageId = null;
 		
 		messageId = messageServices.createMessage(message);
 		
 		return messageId;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public  List readMessage(){
 		System.out.println("here");
@@ -44,13 +45,13 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/update/{id}", method= RequestMethod.PUT)
-	public @ResponseBody boolean updateUser(@PathVariable("id") Integer messageId, @RequestBody String message){
+	public  boolean updateUser(@PathVariable("id") Long messageId, @RequestBody String message){
 		return messageServices.updateMessage(messageId, message);
 		
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method= RequestMethod.GET)
-	public @ResponseBody boolean deleteUser(@PathVariable("id") Integer messageId){
+	public boolean deleteUser(@PathVariable("id") Long messageId){
 		return messageServices.deleteMessage(messageId);
 		
 	}

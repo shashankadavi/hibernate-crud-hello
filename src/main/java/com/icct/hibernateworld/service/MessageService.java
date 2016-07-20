@@ -13,19 +13,20 @@ public class MessageService {
 	@Autowired
 	MessageDao messageDao = new MessageDao();
 	
-	public Integer createMessage(String message){
+	public Long createMessage(String message){
 		return messageDao.createMessage(message);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List readMessage(){
 		return messageDao.readMessage();
 	}
 	
-	public boolean updateMessage(Integer messageId, String message){
+	public boolean updateMessage(Long messageId, String message){
 		return messageDao.updateMessage(messageId, message);
 	}
 	
-	public boolean deleteMessage(Integer messageId){
+	public boolean deleteMessage(Long messageId){
 		return messageDao.deleteMessage(messageId);
 	}
 }
