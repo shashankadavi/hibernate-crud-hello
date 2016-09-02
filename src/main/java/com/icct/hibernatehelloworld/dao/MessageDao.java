@@ -7,11 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import com.icct.hibernatehelloworld.model.Message;
-import com.icct.hibernatehelloworld.util.HibernateUtil;
 
 public class MessageDao {
 	
@@ -45,14 +41,15 @@ public class MessageDao {
 		 return messageID;        			
 	}
 	
-		@SuppressWarnings({ "rawtypes" })
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public List readMessage(){
 		 Session session = sessionFactory.openSession();
 		 		 Transaction tx = null;
-		 		 List messages = null;
+		 		 List<Message> messages = null;
 		 try{
 			 tx = session.beginTransaction();
-			  messages = session.createQuery("FROM Message").getResultList();
+			 //Query q = session.createQuery("FROM Message",Message.class);			 
+			 messages = session.createQuery("FROM Message").getResultList();
 			 //messages = session.createCriteria(Message.class).list();
 			 
 		     
@@ -69,7 +66,7 @@ public class MessageDao {
 	}
 	
 	
-	public boolean updateMessage(Long messageID, String message ){
+	public Boolean updateMessage(Long messageID, String message ){
 		 Session session = sessionFactory.openSession();
 		 Transaction tx = null;
 		 boolean updated = false;
@@ -96,7 +93,7 @@ public class MessageDao {
 		 
 	}
 	
-	public boolean deleteMessage(Long messageID){
+	public Boolean deleteMessage(Long messageID){
 		 Session session = sessionFactory.openSession();
 		 Transaction tx = null;
 		 boolean deleted = false;

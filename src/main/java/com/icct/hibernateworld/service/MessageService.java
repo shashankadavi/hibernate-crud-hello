@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.icct.hibernatehelloworld.dao.MessageDao;
+import com.icct.hibernatehelloworld.model.Message;
 
-@Service
+@Service("messageService")
 public class MessageService {
 	
 	@Autowired
@@ -17,16 +18,16 @@ public class MessageService {
 		return messageDao.createMessage(message);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List readMessage(){
+	@SuppressWarnings({ "unchecked" })
+	public List<Message> readMessage(){
 		return messageDao.readMessage();
 	}
 	
-	public boolean updateMessage(Long messageId, String message){
+	public Boolean updateMessage(Long messageId, String message){
 		return messageDao.updateMessage(messageId, message);
 	}
 	
-	public boolean deleteMessage(Long messageId){
+	public Boolean deleteMessage(Long messageId){
 		return messageDao.deleteMessage(messageId);
 	}
 }
